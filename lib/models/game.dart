@@ -1,25 +1,23 @@
+import 'dart:async';
 import 'dart:math';
 
-import 'package:bulls_and_cows_flutter/utils/invalid_input_exception.dart';
-
-import '../utils/duplicate_exception.dart';
-import 'attempt.dart';
+import 'guess.dart';
 
 class Game {
-  final List<int> _secretNumber = [1, 2, 3, 4];
   final _random = Random();
-  int _attemptNumber = 0;
+  final _secretNumber = [1, 2, 3, 4];
+  int _guessNumber = 0;
+  final _guessList = <Guess>[];
+  final _guessStream = StreamController<List<Guess>>();
+  Stream<List<Guess>> get guesses => _guessStream.stream;
 
   Game() {
     _generateSecretNumber();
   }
 
-  Attempt evaluateUserInput(List<int> userInput) {
-    if (userInput.length != 4) {
-      throw InvalidInputException("User Input must contain 4 integers.");
-    }
-    if (userInput.length != userInput.toSet().length) {
-      throw DuplicateException("User Input must not contain duplicates.");
+  bool evaluateUserInput(List<int> userInput) {
+    if (userInput.length != 4 || userInput.length != userInput.toSet().length) {
+      throw Exception();
     }
 
     List<Result> result = [];
@@ -36,23 +34,23 @@ class Game {
       }
     }
     result.sort((a, b) => b.index.compareTo(a.index));
-    _attemptNumber++;
-    return Attempt(number: _attemptNumber, values: userInput, results: result);
-  }
+    _guessNumber++;
 
-  bool isGameOver(Attempt attempt) {
-    // check if attempt.results contains only Result.bull values
-    return attempt.results.every((element) => element == Result.bull);
+    _guessList.add(Guess(number: _guessNumber, values: userInput, results: result));
+    _guessStream.add(_guessList);
+
+    return result.every((element) => element == Result.bull);
   }
 
   void restart() {
     _generateSecretNumber();
-    _attemptNumber = 0;
+    _guessNumber = 0;
+    _guessList.clear();
+    _guessStream.add(_guessList);
   }
 
   void _generateSecretNumber() {
     _secretNumber.clear();
-
     while (_secretNumber.length < 4) {
       int newNumber = _random.nextInt(10);
       if (!_secretNumber.contains(newNumber)) {

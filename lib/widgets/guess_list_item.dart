@@ -1,13 +1,13 @@
-import 'package:bulls_and_cows_flutter/models/attempt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../models/guess.dart';
 import '../utils/app_colors.dart';
 
-class AttemptItem extends StatelessWidget {
-  const AttemptItem({super.key, required this.attempt});
+class GuessListItem extends StatelessWidget {
+  const GuessListItem({super.key, required this.guess});
 
-  final Attempt attempt;
+  final Guess guess;
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +18,29 @@ class AttemptItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            "${attempt.number}",
+            "${guess.number}",
             style: const TextStyle(color: textColor, fontSize: 18.0),
           ),
           Row(
             children: [
-              SizedSvgImage(size: 40, imageName: attempt.values[0].toString()),
+              SizedSvgImage(size: 40, imageName: guess.values[0].toString()),
               const SizedBox(width: 8),
-              SizedSvgImage(size: 40, imageName: attempt.values[1].toString()),
+              SizedSvgImage(size: 40, imageName: guess.values[1].toString()),
               const SizedBox(width: 8),
-              SizedSvgImage(size: 40, imageName: attempt.values[2].toString()),
+              SizedSvgImage(size: 40, imageName: guess.values[2].toString()),
               const SizedBox(width: 8),
-              SizedSvgImage(size: 40, imageName: attempt.values[3].toString()),
+              SizedSvgImage(size: 40, imageName: guess.values[3].toString()),
             ],
           ),
           Row(
             children: <Widget>[
-              SizedSvgImage(size: 20, imageName: attempt.results[0].name),
+              SizedSvgImage(size: 20, imageName: guess.results[0].name),
               const SizedBox(width: 8),
-              SizedSvgImage(size: 20, imageName: attempt.results[1].name),
+              SizedSvgImage(size: 20, imageName: guess.results[1].name),
               const SizedBox(width: 8),
-              SizedSvgImage(size: 20, imageName: attempt.results[2].name),
+              SizedSvgImage(size: 20, imageName: guess.results[2].name),
               const SizedBox(width: 8),
-              SizedSvgImage(size: 20, imageName: attempt.results[3].name),
+              SizedSvgImage(size: 20, imageName: guess.results[3].name),
             ],
           ),
         ],

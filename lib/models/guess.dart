@@ -1,9 +1,9 @@
-class Attempt {
+class Guess {
   final int number;
   final List<int> values;
   final List<Result> results;
 
-  Attempt({
+  Guess({
     required this.number,
     required this.values,
     required this.results,

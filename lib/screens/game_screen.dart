@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/app_colors.dart';
-import '../widgets/attempt_item.dart';
+import '../widgets/guess_list_item.dart';
 import '../widgets/number_picker_dialog.dart';
 
 class GameScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class GameScreen extends StatelessWidget {
     final pickedNumber = await showDialog<int>(
         context: context,
         builder: (BuildContext context) {
-          return NumberPickerDialog();
+          return const NumberPickerDialog();
         });
     return pickedNumber ?? -1;
   }
@@ -43,7 +43,7 @@ class GameScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: primaryColor,
-              title: const Text("Bulls & Cows"),
+              title: gameViewModel.isGameOver ? const Text("You win!") : const Text("Bulls & Cows"),
               actions: <Widget>[
                 Padding(
                     padding: const EdgeInsets.only(right: 20.0),
@@ -63,10 +63,10 @@ class GameScreen extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: ListView.builder(
-                      itemCount: gameViewModel.attempts.length,
+                      itemCount: gameViewModel.guesses.length,
                       itemBuilder: (ctx, index) {
-                        return AttemptItem(
-                          attempt: gameViewModel.attempts[index],
+                        return GuessListItem(
+                          guess: gameViewModel.guesses[index],
                         );
                       },
                     ),
@@ -111,7 +111,7 @@ class GameScreen extends StatelessWidget {
                                 'assets/images/${gameViewModel.pickedNumbers[4]}.svg'),
                           ),
                           ElevatedButton(
-                            onPressed: () => gameViewModel.onAttempt(),
+                            onPressed: () => gameViewModel.onNewGuess(),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: buttonColor,
                               shape: RoundedRectangleBorder(
