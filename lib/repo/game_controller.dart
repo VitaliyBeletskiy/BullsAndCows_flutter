@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'guess.dart';
+import '../models/guess.dart';
 
-class Game {
+class GameController {
   final _random = Random();
   final _secretNumber = [1, 2, 3, 4];
   int _guessNumber = 0;
@@ -11,7 +11,7 @@ class Game {
   final _guessStream = StreamController<List<Guess>>();
   Stream<List<Guess>> get guesses => _guessStream.stream;
 
-  Game() {
+  GameController() {
     _generateSecretNumber();
   }
 

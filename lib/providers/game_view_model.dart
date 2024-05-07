@@ -2,11 +2,11 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 
-import '../models/game.dart';
 import '../models/guess.dart';
+import '../repo/game_controller.dart';
 
 class GameViewModel extends ChangeNotifier {
-  final _game = Game();
+  final _gameController = GameController();
   final _pickedNumbers = <int, int>{1: 1, 2: 2, 3: 3, 4: 4};
   final List<Guess> _guesses = [];
   var _isGameOver = false;
@@ -21,7 +21,7 @@ class GameViewModel extends ChangeNotifier {
   String? get message => _message;
 
   GameViewModel() {
-    _game.guesses.listen((guessList) {
+    _gameController.guesses.listen((guessList) {
       _guesses.clear();
       _guesses.addAll(guessList);
       notifyListeners();
@@ -41,7 +41,8 @@ class GameViewModel extends ChangeNotifier {
     } catch (e) {
       return;
     }
-    _isGameOver = _game.evaluateUserInput(_pickedNumbers.values.toList());
+    _isGameOver =
+        _gameController.evaluateUserInput(_pickedNumbers.values.toList());
     notifyListeners();
   }
 
@@ -51,7 +52,7 @@ class GameViewModel extends ChangeNotifier {
     _guesses.clear();
     _pickedNumbers.clear();
     _pickedNumbers.addAll({1: 1, 2: 2, 3: 3, 4: 4});
-    _game.restart();
+    _gameController.restart();
     notifyListeners();
   }
 
