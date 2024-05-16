@@ -2,16 +2,18 @@ import 'dart:async';
 import 'dart:math';
 
 import '../models/guess.dart';
+import '../models/result.dart';
 
-class GameController {
+class BullsAndCowsGame {
   final _random = Random();
   final _secretNumber = [1, 2, 3, 4];
   int _guessNumber = 0;
   final _guessList = <Guess>[];
   final _guessStream = StreamController<List<Guess>>();
+
   Stream<List<Guess>> get guesses => _guessStream.stream;
 
-  GameController() {
+  BullsAndCowsGame() {
     _generateSecretNumber();
   }
 

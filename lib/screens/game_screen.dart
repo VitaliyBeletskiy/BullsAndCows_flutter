@@ -81,7 +81,7 @@ class GameScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               _pickNumber(context).then((value) =>
-                                  gameViewModel.numberPicked(1, value));
+                                  gameViewModel.onNumberPicked(1, value));
                             },
                             child: SvgPicture.asset(
                                 'assets/images/${gameViewModel.pickedNumbers[1]}.svg'),
@@ -89,7 +89,7 @@ class GameScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               _pickNumber(context).then((value) =>
-                                  gameViewModel.numberPicked(2, value));
+                                  gameViewModel.onNumberPicked(2, value));
                             },
                             child: SvgPicture.asset(
                                 'assets/images/${gameViewModel.pickedNumbers[2]}.svg'),
@@ -97,7 +97,7 @@ class GameScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               _pickNumber(context).then((value) =>
-                                  gameViewModel.numberPicked(3, value));
+                                  gameViewModel.onNumberPicked(3, value));
                             },
                             child: SvgPicture.asset(
                                 'assets/images/${gameViewModel.pickedNumbers[3]}.svg'),
@@ -105,7 +105,7 @@ class GameScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               _pickNumber(context).then((value) =>
-                                  gameViewModel.numberPicked(4, value));
+                                  gameViewModel.onNumberPicked(4, value));
                             },
                             child: SvgPicture.asset(
                                 'assets/images/${gameViewModel.pickedNumbers[4]}.svg'),
