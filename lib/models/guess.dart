@@ -1,3 +1,5 @@
+import 'result.dart';
+
 class Guess {
   final int number;
   final List<int> values;
@@ -9,5 +11,3 @@ class Guess {
     required this.results,
   });
 }
-
-enum Result { nothing, cow, bull }

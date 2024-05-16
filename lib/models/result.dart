@@ -1,0 +1,1 @@
+enum Result { nothing, cow, bull }

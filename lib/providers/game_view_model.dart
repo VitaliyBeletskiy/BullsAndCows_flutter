@@ -1,12 +1,14 @@
 import 'dart:collection';
 
+import 'package:bulls_and_cows_flutter/repos/flutter_game_repository.dart';
+import 'package:bulls_and_cows_flutter/repos/game_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../models/guess.dart';
-import '../repo/game_controller.dart';
 
 class GameViewModel extends ChangeNotifier {
-  final _gameController = GameController();
+  final GameRepository _gameRepo = FlutterGameRepository();
+
   final _pickedNumbers = <int, int>{1: 1, 2: 2, 3: 3, 4: 4};
   final List<Guess> _guesses = [];
   var _isGameOver = false;
@@ -21,14 +23,14 @@ class GameViewModel extends ChangeNotifier {
   String? get message => _message;
 
   GameViewModel() {
-    _gameController.guesses.listen((guessList) {
+    _gameRepo.guessList.listen((guessList) {
       _guesses.clear();
       _guesses.addAll(guessList);
       notifyListeners();
     });
   }
 
-  void numberPicked(int position, int value) {
+  void onNumberPicked(int position, int value) {
     if (value >= 0 && value <= 9 && position >= 1 && position <= 4) {
       _pickedNumbers[position] = value;
       notifyListeners();
@@ -41,8 +43,7 @@ class GameViewModel extends ChangeNotifier {
     } catch (e) {
       return;
     }
-    _isGameOver =
-        _gameController.evaluateUserInput(_pickedNumbers.values.toList());
+    _isGameOver = _gameRepo.evaluateUserInput(_pickedNumbers.values.toList());
     notifyListeners();
   }
 
@@ -52,7 +53,7 @@ class GameViewModel extends ChangeNotifier {
     _guesses.clear();
     _pickedNumbers.clear();
     _pickedNumbers.addAll({1: 1, 2: 2, 3: 3, 4: 4});
-    _gameController.restart();
+    _gameRepo.restart();
     notifyListeners();
   }
 

@@ -1,4 +1,4 @@
-package com.example.bulls_and_cows_flutter
+package com.beletskiy.bullsandcows.flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
