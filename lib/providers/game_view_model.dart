@@ -1,13 +1,13 @@
 import 'dart:collection';
 
-import 'package:bulls_and_cows_flutter/repos/flutter_game_repository.dart';
 import 'package:bulls_and_cows_flutter/repos/game_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../models/guess.dart';
+import '../repos/pigeon_game_repository.dart';
 
 class GameViewModel extends ChangeNotifier {
-  final GameRepository _gameRepo = FlutterGameRepository();
+  final GameRepository _gameRepo = PigeonGameRepository();
 
   final _pickedNumbers = <int, int>{1: 1, 2: 2, 3: 3, 4: 4};
   final List<Guess> _guesses = [];
@@ -43,8 +43,10 @@ class GameViewModel extends ChangeNotifier {
     } catch (e) {
       return;
     }
-    _isGameOver = _gameRepo.evaluateUserInput(_pickedNumbers.values.toList());
-    notifyListeners();
+    _gameRepo.evaluateUserInput(_pickedNumbers.values.toList()).then((value) {
+      _isGameOver = value;
+      notifyListeners();
+    });
   }
 
   void restart() {

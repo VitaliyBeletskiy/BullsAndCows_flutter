@@ -4,7 +4,7 @@ abstract class GameRepository {
 
   late Stream<List<Guess>> guessList;
 
-  bool evaluateUserInput(List<int> userInput);
+  Future<bool> evaluateUserInput(List<int> userInput);
 
   void restart();
 }
